@@ -10,6 +10,8 @@ import 'vue-material/dist/vue-material.min.css'
 
 import Button from "@/components/UI/Button";
 
+import wysiwyg from "vue-wysiwyg"
+
 Vue.component('app-button', Button);
 
 /* MATERIAL */
@@ -20,6 +22,7 @@ Vue.http.options.root = '';
 
 /* MISC */
 Vue.use(vuelidate);
+Vue.use(wysiwyg, {});
 
 new Vue({
   router,

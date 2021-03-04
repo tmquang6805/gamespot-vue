@@ -115,7 +115,7 @@ const admin = {
                     console.log(err);
                 });
         },
-        refreshToken({ commit }){
+        refreshToken({ commit, dispatch }){
             const refreshToken = localStorage.getItem("refresh");
             const expireAt = parseInt(localStorage.getItem("expire_at"));
             const now = Math.floor(parseInt(Date.now() / 1000));
@@ -135,7 +135,7 @@ const admin = {
                 return false;
             }
 
-            this.doRefreshToken({ commit }, refreshToken);
+            dispatch("doRefreshToken", refreshToken);
         }
     }
 }
