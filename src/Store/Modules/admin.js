@@ -2,21 +2,6 @@
 import Vue from 'vue'
 import router from '../../routes'
 
-/*
-// Your web app's Firebase configuration
-  var firebaseConfig = {
-    apiKey: "AIzaSyCFYQKvQgLwUG-xlh78kmNQnubAfoxXgMU",
-    authDomain: "gamespot-6c6c8.firebaseapp.com",
-    databaseURL: "https://gamespot-6c6c8-default-rtdb.firebaseio.com",
-    projectId: "gamespot-6c6c8",
-    storageBucket: "gamespot-6c6c8.appspot.com",
-    messagingSenderId: "820183967013",
-    appId: "1:820183967013:web:e1a25eac28f2d9ab9066cc"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
- */
-
 const FbConfig = {
     auth: "https://identitytoolkit.googleapis.com/v1",
     api_key: "AIzaSyCFYQKvQgLwUG-xlh78kmNQnubAfoxXgMU",

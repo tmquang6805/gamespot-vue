@@ -3,21 +3,21 @@
     <div class="home_container">
       <md-card v-for="(post, index) in posts" :key="index">
 
-        <md-card-media md-ratio="16:9">
-          <img :src="require(`../../assets/images/featured/${post.img}`)" alt="">
+        <md-card-media md-ratio="4:3">
+          <img :src="post.img" alt="">
         </md-card-media>
 
         <md-card-header>
-          <h2 class="title">{{ post.title }}</h2>
+          <h2 class="md-title">{{ post.title }}</h2>
           <div class="md-subhead">
-            <div>{{ post.description }}</div>
+            <div>{{ post.desc }}</div>
           </div>
         </md-card-header>
 
         <md-card-actions>
           <app-button
               type="link"
-              link-to="#"
+              :link-to="`/posts/${post.id}`"
               :addClass="['small_link']"
           >
             See review
@@ -26,17 +26,36 @@
 
       </md-card>
     </div>
+
+    <div class="load_more">
+      <app-button type="btn" :add-class="['small_link']" :action="loadMore">
+        Load more
+      </app-button>
+    </div>
+
   </div>
 </template>
 
 <script>
-  import posts from "@/assets/posts";
+  // import posts from "@/assets/posts";
 
   export default {
     name: "Content",
-    data() {
-      return {
-        posts
+    created() {
+      this.$store.dispatch("posts/getAllPosts", {
+        limit: 3
+      });
+    },
+    computed: {
+      posts(){
+        return this.$store.getters["posts/getAllPosts"];
+      }
+    },
+    methods:  {
+      loadMore() {
+        this.$store.dispatch("posts/getAllPosts", {
+          limit: this.posts.length + 3
+        });
       }
     }
   }
