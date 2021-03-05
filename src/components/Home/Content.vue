@@ -17,7 +17,7 @@
         <md-card-actions>
           <app-button
               type="link"
-              :link-to="`/posts/${post.id}`"
+              :link-to="`/post/${post.id}`"
               :addClass="['small_link']"
           >
             See review

@@ -10,6 +10,7 @@ import Dashboard from './components/Dashboard/Index'
 import AddPost from "@/components/Dashboard/AddPost";
 import ListPosts from "@/components/Dashboard/ListPosts";
 import MainDashboard from "@/components/Dashboard/Main";
+import Post from "@/components/Post/Index";
 
 Vue.use(VueRouter);
 
@@ -43,6 +44,7 @@ const routes = [
         ],
         ...authGuard
     },
+    { path: '/post/:id', component: Post },
     { path: '*', beforeEnter: (to, from, next) => {
         next({ name: "home" })
     } }
