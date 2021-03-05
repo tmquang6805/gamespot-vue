@@ -5,8 +5,9 @@ import router from "./routes";
 import store from "@/Store/store";
 import vuelidate from 'vuelidate'
 
-import { MdCard } from 'vue-material/dist/components'
+import { MdCard, MdButton, MdDialog, MdContent } from 'vue-material/dist/components'
 import 'vue-material/dist/vue-material.min.css'
+import 'vue-material/dist/theme/default.css'
 
 import Button from "@/components/UI/Button";
 
@@ -16,9 +17,12 @@ Vue.component('app-button', Button);
 
 /* MATERIAL */
 Vue.use(MdCard);
+Vue.use(MdButton);
+Vue.use(MdDialog);
+Vue.use(MdContent);
 
 Vue.use(VueResource);
-Vue.http.options.root = '';
+Vue.http.options.root = 'https://gamespot-6c6c8-default-rtdb.firebaseio.com/';
 
 /* MISC */
 Vue.use(vuelidate);

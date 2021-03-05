@@ -7,6 +7,7 @@ import router from '../../routes'
   var firebaseConfig = {
     apiKey: "AIzaSyCFYQKvQgLwUG-xlh78kmNQnubAfoxXgMU",
     authDomain: "gamespot-6c6c8.firebaseapp.com",
+    databaseURL: "https://gamespot-6c6c8-default-rtdb.firebaseio.com",
     projectId: "gamespot-6c6c8",
     storageBucket: "gamespot-6c6c8.appspot.com",
     messagingSenderId: "820183967013",
@@ -28,6 +29,8 @@ const admin = {
         refresh: null,
         authFailed: false,
         loading: true,
+        addPostStatus: false,
+        imageUploadUrl: null,
     },
     getters: {
         isAuth(state) {
@@ -35,6 +38,12 @@ const admin = {
         },
         isLoading(state) {
             return state.loading;
+        },
+        getPostStatus(state) {
+            return state.addPostStatus;
+        },
+        getImageUrl(state) {
+            return state.imageUploadUrl;
         }
     },
     mutations: {
@@ -65,6 +74,18 @@ const admin = {
         },
         resetLoading(state) {
             state.loading = false;
+        },
+        setPostStatusToTrue(state) {
+            state.addPostStatus = true;
+        },
+        resetPostStatus(state) {
+            state.addPostStatus = false;
+        },
+        imageUpload(state, imageData) {
+            state.imageUploadUrl = imageData.secure_url;
+        },
+        clearImageUpload(state) {
+            state.imageUploadUrl = '';
         }
     },
     actions: {
@@ -136,6 +157,34 @@ const admin = {
             }
 
             dispatch("doRefreshToken", refreshToken);
+        },
+        addPost({ commit, state }, post) {
+            Vue.http.post(`posts.json?auth=${state.token}`, post)
+                .then(response => response.json())
+                .then(response => {
+                    commit("setPostStatusToTrue");
+                    setTimeout(() => {
+                        commit("resetPostStatus");
+                    }, 3000);
+                });
+        },
+        imageUpload({ commit }, file) {
+            const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/tmquang6805/image/upload';
+            const CLOUDINARY_PRESET = 'ml_default';
+
+            let formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', CLOUDINARY_PRESET);
+
+            Vue.http.post(CLOUDINARY_URL, formData, {
+                headers: {
+                    'Content-type': 'Application/x-www-urlencoded'
+                }
+            })
+            .then(response => response.json())
+            .then(response => {
+                commit('imageUpload', response);
+            });
         }
     }
 }
